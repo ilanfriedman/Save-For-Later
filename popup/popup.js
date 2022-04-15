@@ -1,7 +1,6 @@
-$(document).ready(function () {
+$(function () {
 	const newItem = document.querySelector('#add-site');
 	const clear = document.querySelector('#clear-all');
-	var tabArray = [];
 
 	newItem.addEventListener('click', () => {
 		getCurrentURL();
@@ -16,14 +15,19 @@ $(document).ready(function () {
 			active: true
 		})
 			.then((tabs) => {
+				if (localStorage.getItem('tabs') == null) {
+					var tabArray = [];
+				} else {
+					tabArray = JSON.parse(localStorage.getItem('tabs'));
+				}
 				var tabURL = tabs[0].url;
-				tabArray.push(tabURL)
+				tabArray.push(tabURL);
 				saveToList(tabArray);
 			})
 	}
 
-	function saveToList(tabURL) {
-		localStorage.setItem('tabs', JSON.stringify(tabURL));
+	function saveToList(tabArray) {
+		localStorage.setItem('tabs', JSON.stringify(tabArray));
 	}
 
 	$("clear-all").onclick

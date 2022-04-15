@@ -23,11 +23,26 @@ browser.contextMenus.create({
 		"link",
 		"tab"
 	],
-	checked: checkedState
+	checked: false,
 }, onCreated);
 
-browser.contextMenus.onClicked.addListener((info, tab) => {
-	checkedState = !checkedState;
-	console.log("Checkbox: " + checkedState);
+function addToArray(tabURL) {
+	if (localStorage.getItem('tabs') == null) {
+		var tabArray = [];
+	} else {
+		var tabArray = JSON.parse(localStorage.getItem('tabs'));
+	}
+	tabArray.push(tabURL);
+	saveToList(tabArray);
+}
 
+function saveToList(tabArray) {
+	localStorage.setItem('tabs', JSON.stringify(tabArray));
+}
+
+browser.contextMenus.onClicked.addListener(function (info, tab) {
+	addToArray(info.pageUrl);
+	console.log(localStorage.getItem('tabs'));
+	// info.wasChecked
+	// info.pageUrl
 });
