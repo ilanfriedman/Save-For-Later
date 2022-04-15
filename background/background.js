@@ -12,8 +12,6 @@ function onError(error) {
 	console.log(`Error: ${error}`);
 }
 
-var checkedState = false;
-
 browser.contextMenus.create({
 	id: "save-for-later",
 	type: "checkbox",
@@ -25,6 +23,12 @@ browser.contextMenus.create({
 	],
 	checked: false,
 }, onCreated);
+
+function getTab() {
+	browser.contextMenus.onClicked.addListener(function (info, tab) {
+		return info.pageUrl;
+	})
+}
 
 function addToArray(tabURL) {
 	if (localStorage.getItem('tabs') == null) {
@@ -42,7 +46,17 @@ function saveToList(tabArray) {
 
 browser.contextMenus.onClicked.addListener(function (info, tab) {
 	addToArray(info.pageUrl);
-	console.log(localStorage.getItem('tabs'));
-	// info.wasChecked
-	// info.pageUrl
 });
+
+browser.contextMenus.onShown.addListener(function (info, tab) {
+	if (JSON.parse(localStorage.getItem('tabs')).includes(info.pageUrl)) {
+		browser.contextMenus.update("save-for-later", {
+			checked: true,
+		});
+	} else {
+		browser.contextMenus.update("save-for-later", {
+			checked: false,
+		});
+	}
+	browser.contextMenus.refresh();
+})
