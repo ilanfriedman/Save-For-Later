@@ -24,12 +24,6 @@ browser.contextMenus.create({
 	checked: false,
 }, onCreated);
 
-function getTab() {
-	browser.contextMenus.onClicked.addListener(function (info, tab) {
-		return info.pageUrl;
-	})
-}
-
 function addToArray(tabURL) {
 	if (localStorage.getItem('tabs') == null) {
 		var tabArray = [];
@@ -40,12 +34,31 @@ function addToArray(tabURL) {
 	saveToList(tabArray);
 }
 
+function removeFromArray(tabURL) {
+	if (localStorage.getItem('tabs') == null) {
+		throw new Error('Nulls should be caught before they get here... so how the hell did this happen');
+	}
+	var tabArray = JSON.parse(localStorage.getItem('tabs'));
+	tabArray = tabArray.filter(e => (e != tabURL));
+	removeFromList(tabArray);
+}
+
 function saveToList(tabArray) {
 	localStorage.setItem('tabs', JSON.stringify(tabArray));
 }
 
+function removeFromList(tabArray) {
+	localStorage.setItem('tabs', JSON.stringify(tabArray));
+}
+
 browser.contextMenus.onClicked.addListener(function (info, tab) {
-	addToArray(info.pageUrl);
+	if (localStorage.getItem('tabs') == null) {
+		addToArray(info.pageUrl);
+	} else if (!JSON.parse(localStorage.getItem('tabs')).includes(info.pageUrl)) {
+		addToArray(info.pageUrl);
+	} else {
+		removeFromArray(info.pageUrl);
+	}
 });
 
 browser.contextMenus.onShown.addListener(function (info, tab) {
