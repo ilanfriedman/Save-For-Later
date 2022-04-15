@@ -5,16 +5,21 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Save for Later</title>
-	<link href="popupstyle.css" rel="stylesheet" />
+	<link href="popup-style.css" rel="stylesheet" />
 </head>
 
 <body>
-	<h1>Hello World!</h1>
+	<h1>Saved For Later</h1>
 	<ul id="saved-for-later">
 	</ul>
-	<button name="add-site" type="button" autofocus>
+	<button name="add-tester" type="button" class="popup-button" id="add-test">Test Add</button>
+	<button name="add-site" type="button" class="popup-button" id="add-site" autofocus>
 		Save Current Site for Later
 	</button>
+	<button name="clear-all" type="button" class="popup-button" id="clear-all">
+		Clear All
+	</button>
+	<script src="../resources/jquery-3.6.0.min.js"></script>
 	<script src="popup.js"></script>
 </body>
 
