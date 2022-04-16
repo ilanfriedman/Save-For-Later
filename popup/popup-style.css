@@ -1,11 +1,34 @@
-h1 {}
+:root {
+	--popup-list-spacer: 10px;
+}
+
+h1 {
+	margin-top: 25px;
+	margin-left: 25px;
+	margin-right: 25px;
+	margin-bottom: var(--popup-list-spacer);
+	text-align: center;
+}
 
 /** List Items */
-#saved-for-later {}
+#saved-for-later {
+	margin: 0px;
+}
 
 /** Buttons!! */
-.popup-button {}
+.popup-button {
+	margin-left: 25px;
+	margin-right: 25px;
+	text-align: center;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
 
-#add-site {}
+#add-site {
+	margin-top: var(--popup-list-spacer);
+}
 
-#clear-all {}
+#clear-all {
+	margin-bottom: 25px;
+
+}

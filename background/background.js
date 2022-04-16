@@ -73,3 +73,11 @@ browser.contextMenus.onShown.addListener(function (info, tab) {
 	}
 	browser.contextMenus.refresh();
 })
+
+browser.runtime.onStartup.addListener(() => {
+	for (var tab in JSON.parse(localStorage.getItem('tabs'))) {
+		browser.tabs.create({
+			url: tab
+		});
+	}
+});

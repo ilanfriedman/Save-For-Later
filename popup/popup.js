@@ -45,13 +45,13 @@ $(function () {
 
 	//TESTS:
 
-	const addTest = document.querySelector('#add-test');
+	/* const addTest = document.querySelector('#add-test');
 	addTest.addEventListener('click', () => {
 		populateStorage();
 		//setTimeout(() => {
 		getCurrentURL();
 		//}, 2000);
-	})
+	}) */
 	function populateStorage() {
 		//localStorage.setItem();
 	}
